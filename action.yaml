@@ -1,0 +1,58 @@
+name: "Nox"
+description: "Runs a nox session"
+author: "Frequenz Energy-as-a-Service GmbH"
+
+# Refer to the following link(s) for more information on inputs:
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
+inputs:
+  python_version:
+    description: >
+      The Python version to use. This is passed to the `actions/setup-python`.
+    required: true
+  nox_session:
+    description: >
+      The nox session to run.
+    required: true
+  nox_dependencies:
+    description: >
+      The dependencies to install using `pip` to run `nox`. By default
+      `".[dev-noxfile]"` is used, but projects not having any extra dependency
+      to run nox can just use `"nox"`.
+    required: false
+    default: ".[dev-noxfile]"
+
+
+# Refer to the following link(s) for more information on the composite run steps:
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python
+      uses: frequenz-floss/setup-python-with-deps@v0.x.x
+      with:
+        python-version: ${{ input.python_version }}
+        dependencies: ${{ inputs.nox_dependencies }}
+
+    - name: Create nox venv
+      shell: bash
+      env:
+        NOX_SESSION: ${{ inputs.nox_session }}
+      run: nox --install-only -e "$NOX_SESSION"
+
+    - name: Print pip freeze for nox venv (debug)
+      shell: bash
+      env:
+        NOX_SESSION: ${{ inputs.nox_session }}
+      run: |
+        . ".nox/$NOX_SESSION/bin/activate"
+        pip freeze
+        deactivate
+
+    - name: Run nox
+      shell: bash
+      env:
+        NOX_SESSION: ${{ inputs.nox_session }}
+      run: nox -R -e "$NOX_SESSION"
+      # Not supported in composite actions yet, see:
+      # https://github.com/actions/runner/issues/1979
+      # timeout-minutes: 10

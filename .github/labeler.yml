@@ -1,0 +1,36 @@
+# Configuration for the Labeler GitHub action, executed by
+# .github/workflows/labeler.yml.
+#
+# The basic syntax is [label]: [path patterns].
+#
+# For more details on the configuration please see:
+# https://github.com/marketplace/actions/labeler
+"part:action":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "action.yaml"
+
+"part:docs":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.md"
+      - "docs/**"
+      - "examples/**"
+      - LICENSE
+
+"part:tests":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "tests/**"
+
+"part:tooling":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.ini"
+      - "**/*.toml"
+      - "**/*.yaml"
+      - "**/*.yml"
+      - ".editorconfig"
+      - ".git*"
+      - ".git*/**"
+      - CODEOWNERS

@@ -60,7 +60,7 @@ runs:
         submodules: true
 
     - name: Setup Python
-      uses: frequenz-floss/gh-action-setup-python-with-deps@v1.0.0
+      uses: frequenz-floss/gh-action-setup-python-with-deps@v1.0.1
       with:
         python-version: ${{ inputs.python-version }}
         dependencies: ${{ inputs.nox-dependencies }}

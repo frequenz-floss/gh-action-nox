@@ -55,7 +55,7 @@ runs:
 
     - name: Fetch sources
       if: inputs.checkout != 'false'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         submodules: true
 

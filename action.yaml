@@ -72,6 +72,7 @@ runs:
       run: nox --install-only -e "$NOX_SESSION"
 
     - name: Print pip freeze for nox venv (debug)
+      if: runner.os != 'Windows'
       shell: bash
       env:
         NOX_SESSION: ${{ inputs.nox-session }}
@@ -79,6 +80,15 @@ runs:
         . ".nox/$NOX_SESSION/bin/activate"
         pip freeze
         deactivate
+
+    - name: Print pip freeze for nox venv (debug) (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      env:
+        NOX_SESSION: ${{ inputs.nox-session }}
+      run: |
+        . ".nox/$env:NOX_SESSION/Scripts/Activate.ps1"
+        pip freeze
 
     - name: Run nox
       shell: bash

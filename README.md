@@ -2,6 +2,13 @@
 
 This action runs a [nox](https://github.com/wntrblm/nox/) session.
 
+> [!WARNING]
+> This action executes `noxfile.py` and potentially build scripts
+> (`setup.py`/`pyproject.toml`) from the working directory. It **MUST NOT** be
+> used with `pull_request_target` workflows that check out untrusted code.
+> Doing so could allow an attacker to execute arbitrary code with the
+> workflow's permissions and secrets.
+
 > [!TIP]
 > If you need to do some cross-arch `nox` testing using QEMU you can use the
 > [`gh-action-nox-cross-arch`](https://github.com/frequenz-floss/gh-action-nox-cross-arch)

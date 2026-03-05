@@ -48,19 +48,19 @@ runs:
 
     - name: Setup Git
       if: inputs.checkout != 'false'
-      uses: frequenz-floss/gh-action-setup-git@v1.0.0
+      uses: frequenz-floss/gh-action-setup-git@f9d86a01228ee1cadaac5224d4d7626f1eb23f90 # v1.0.0
       with:
         username: ${{ inputs.git-username }}
         password: ${{ inputs.git-password }}
 
     - name: Fetch sources
       if: inputs.checkout != 'false'
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         submodules: true
 
     - name: Setup Python
-      uses: frequenz-floss/gh-action-setup-python-with-deps@v1.0.2
+      uses: frequenz-floss/gh-action-setup-python-with-deps@e4d0b2ef8f5a1612d7827f3abaef17c931d2b946 # v1.0.2
       with:
         python-version: ${{ inputs.python-version }}
         dependencies: ${{ inputs.nox-dependencies }}

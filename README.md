@@ -9,11 +9,6 @@ This action runs a [nox](https://github.com/wntrblm/nox/) session.
 > Doing so could allow an attacker to execute arbitrary code with the
 > workflow's permissions and secrets.
 
-> [!TIP]
-> If you need to do some cross-arch `nox` testing using QEMU you can use the
-> [`gh-action-nox-cross-arch`](https://github.com/frequenz-floss/gh-action-nox-cross-arch)
-> action.
-
 Here is an example demonstrating how to use it in a workflow with a matrix job:
 
 ```yaml

@@ -20,21 +20,6 @@ inputs:
       to run nox can just use `"nox"`.
     required: false
     default: ".[dev-noxfile]"
-  checkout:
-    description: >
-      Whether to checkout the repository or not. If set to `false`, the action
-      will not checkout the repository. This is useful when the repository is
-      already checked out.
-    required: false
-    default: "true"
-  git-username:
-    description: >
-      The username to use for the Git credentials.
-    required: false
-  git-password:
-    description: >
-      The password to use for the Git credentials.
-    required: false
 
 
 # Refer to the following link(s) for more information on the composite run steps:
@@ -45,19 +30,6 @@ runs:
     - name: Print environment (debug)
       shell: bash
       run: env
-
-    - name: Setup Git
-      if: inputs.checkout != 'false'
-      uses: frequenz-floss/gh-action-setup-git@f9d86a01228ee1cadaac5224d4d7626f1eb23f90 # v1.0.0
-      with:
-        username: ${{ inputs.git-username }}
-        password: ${{ inputs.git-password }}
-
-    - name: Fetch sources
-      if: inputs.checkout != 'false'
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      with:
-        submodules: true
 
     - name: Setup Python
       uses: frequenz-floss/gh-action-setup-python-with-deps@bc560ff517d3606e1291eed46a603a9f7bfe8697 # v1.0.3

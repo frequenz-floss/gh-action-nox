@@ -41,11 +41,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           nox-session: ${{ matrix.nox-session }}
-          git-username: ${{ secrets.GIT_USER }}
-          git-password: ${{ secrets.GIT_PASS }}
 ```
 
 ## Inputs
+
+This action expects the workflow to check out the repository before running
+`nox`.
 
 * `python-version`: The python version to use. Required.
 
@@ -59,21 +60,6 @@ jobs:
   Optional. Default: `".[dev-noxfile]"`.
 
   Projects not having any extra dependency to run nox can just use `"nox"` here.
-
-* `checkout`: Whether to checkout the code. Optional. Default: `true`.
-
-  When true, this action will first setup git using the
-  [`gh-action-setup-git`](https://github.com/frequenz-floss/gh-action-setup-git/),
-  passing `git-username` and `git-password` as credentials if provided, and then
-  fetch the code using [`actions/checkout`](https://github.com/actions/checkout).
-
-* `git-username`: The username to use for the git configuration. Optional.
-
-  This is particularly useful if `pip` needs to access a private repository.
-
-* `git-password`: The password to use for the git configuration. Optional.
-
-  This is particularly useful if `pip` needs to access a private repository.
 
 ## Permissions
 

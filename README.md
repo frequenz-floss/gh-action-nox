@@ -15,11 +15,14 @@ Here is an example demonstrating how to use it in a workflow with a matrix job:
 jobs:
   nox:
     name: Test with nox
+    permissions:
+      # Required for the checkout step, not this action itself.
+      contents: read
     strategy:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-22.04
+          - ubuntu-slim
         python-version:
           - "3.11"
         nox-session:
@@ -34,7 +37,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run nox
-        uses: frequenz-floss/gh-action-nox@v1.0.0
+        uses: frequenz-floss/gh-action-nox@<hash> # v1.0.0
         with:
           python-version: ${{ matrix.python-version }}
           nox-session: ${{ matrix.nox-session }}
@@ -72,6 +75,13 @@ jobs:
 
   This is particularly useful if `pip` needs to access a private repository.
 
+## Permissions
+
+This action does not require any GitHub token permissions by itself.
+
+If the calling workflow uses `actions/checkout`, grant whatever permissions that
+step needs separately.
+
 ## Recommended use with matrix jobs
 
 When using a matrix, it is recommended to create a dummy job to *merge* all the
@@ -91,7 +101,7 @@ update your matrix.
     needs: ["nox"]
     # We skip this job only if nox was also skipped
     if: always() && needs.nox.result != 'skipped'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     env:
       DEPS_RESULT: ${{ needs.nox.result }}
     steps:

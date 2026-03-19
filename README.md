@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-22.04
+          - ubuntu-slim
         python-version:
           - "3.11"
         nox-session:
@@ -101,7 +101,7 @@ update your matrix.
     needs: ["nox"]
     # We skip this job only if nox was also skipped
     if: always() && needs.nox.result != 'skipped'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     env:
       DEPS_RESULT: ${{ needs.nox.result }}
     steps:

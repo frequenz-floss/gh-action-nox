@@ -15,6 +15,9 @@ Here is an example demonstrating how to use it in a workflow with a matrix job:
 jobs:
   nox:
     name: Test with nox
+    permissions:
+      # Required for the checkout step, not this action itself.
+      contents: read
     strategy:
       fail-fast: false
       matrix:

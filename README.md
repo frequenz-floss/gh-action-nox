@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run nox
-        uses: frequenz-floss/gh-action-nox@v1.0.0
+        uses: frequenz-floss/gh-action-nox@<hash> # v1.0.0
         with:
           python-version: ${{ matrix.python-version }}
           nox-session: ${{ matrix.nox-session }}

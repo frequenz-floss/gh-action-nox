@@ -72,6 +72,13 @@ jobs:
 
   This is particularly useful if `pip` needs to access a private repository.
 
+## Permissions
+
+This action does not require any GitHub token permissions by itself.
+
+If the calling workflow uses `actions/checkout`, grant whatever permissions that
+step needs separately.
+
 ## Recommended use with matrix jobs
 
 When using a matrix, it is recommended to create a dummy job to *merge* all the
